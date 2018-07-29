@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>A Day in the Life of Citi Bike</title>
+    <title>Sharing Car Visualization</title>
     <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css?family=Cardo|Montserrat" rel="stylesheet">
     <script src="https://use.fontawesome.com/2f18af269b.js"></script>
@@ -11,6 +11,39 @@
     <script src="lib/moment.js"></script>
     <script type="text/javascript" src="https://d3js.org/d3.v3.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDQc22btIuM25T3-OZWUc_xmU_0N6ADyvE&libraries=geometry,visualization">
+    </script>
+
+    <script type="text/javascript">
+        $(function () {
+            $(".container").scrollText({
+                'duration': 4000
+            });
+        });
+
+        function showRealtime() {
+            var realtime = document.getElementById("message");
+            if (realtime.style.visibility == 'hidden') {
+                realtime.style.visibility = 'visible';
+            }
+            else {
+                if (realtime.style.visibility = 'visible') {
+                    realtime.style.visibility = 'hidden';
+                }
+            }
+        }
+
+        function showFigures() {
+            var figure = document.getElementById("figures");
+            if (figure.style.display == 'none') {
+                figure.style.display = 'block';
+            }
+            else {
+                if (figure.style.display = 'block') {
+                    figure.style.display = 'none';
+                }
+            }
+        }
+
     </script>
     <script src="https://www.gstatic.com/firebasejs/3.7.0/firebase.js"></script>
     <script>
@@ -25,8 +58,6 @@
         firebase.initializeApp(config);
     </script>
     <script src="https://code.highcharts.com/highcharts.js"></script>
-    <!--<script src="https://code.highcharts.com/modules/exporting.js"></script>-->
-    <!--<script src="https://code.highcharts.com/modules/export-data.js"></script>-->
     <script src="lib/dark-unica.js"></script>
     <script src="lib/series-label.js"></script>
 
@@ -45,7 +76,6 @@
     <div class="left">
         <section class="options">
             <h2>Options</h2>
-
             <ul>
                 <li>
                     Start time <input type="time" id="time" value="00:00"></input>
@@ -88,11 +118,19 @@
 
             <br/>
 
+            <ul>
+                <li>
+                    <button id="figure" onclick="showFigures()">Figures </button>
+                    <!--<button id="realtime" onclick="showRealtime()">Real-Time Status</button>-->
+                </li>
+            </ul>
+
             <div id="loading">
                 <i class="fa fa-cog" aria-hidden="true"></i>
                 <br/>Loading...
                 <!--<br/>(this could take a minute on slower connections)-->
             </div>
+
         </section>
 
         <!--</section>-->
@@ -143,21 +181,56 @@
     </div>
 
     <!--<div class="bottom">-->
-        <!--<div id="pie1"></div>-->
-        <!--<script src="lib/plot.js" charset="utf-8"></script>-->
+    <!--<div id="pie1"></div>-->
+    <!--<script src="lib/plot.js" charset="utf-8"></script>-->
     <!--</div>-->
 
 
     <!--<div class="right"></div>-->
-    <div id="figure" style="position: absolute; bottom: 5%">
-        <div id="pie" style="height: 250px; width: 350px; max-width: 600px; margin: 0 auto; opacity: 0.6; float: left"></div>
-        <div id="line" style="height: 250px; width: 350px; max-width: 600px; margin: 0 auto; opacity: 0.6; float: left"></div>
-        <script src="lib/plot.js" charset="utf-8"></script>
+    <div id="figures" style="position: absolute; bottom: 0; display: none">
+        <div id="pie"
+             style="height: 300px; width: 350px; max-width: 600px; margin: 0 auto; opacity: 0.5; float: left; "></div>
+        <div id="line"
+             style="height: 300px; width: 350px; max-width: 600px; margin: 0 auto; opacity: 0.5; float: left; "></div>
+        <script src="lib/plot.js"></script>
     </div>
 
+    <div class="container" style="position: absolute; right: 0; top: 30%;">
+        <h1>REAL-TIME</h1>
+        <div class="container" style="width: 400px; height: 240px; line-height: 50px; overflow: Hidden;">
+            <ul>
+                <li><b>JOE</b> orders <b>CAR #47</b> for 37.7749° N, 122.4194° W</li>
+                <li><b>CAR #47</b> picks up <b>JOE</b> at 37.7749° N, 122.4194° W</li>
+                <li><b>ALVIN</b> orders <b>CAR #293</b> for 37.4419° N, 122.1430° W</li>
+                <li><b>CAR #47</b> drops off <b>JOE</b> at 37.8716° N, 122.2727° W</li>
+                <li><b>CAR #293</b> picks up <b>ALVIN</b> at 37.4419° N, 122.1430° W</li>
+                <li><b>CAR #293</b> drops off <b>ALVIN</b> at 37.7749° N, 122.4194° W</li>
+                <li><font color=orange>CAUTION! <b>CAR #8</b> approaching critical gas levels. Increasing refill
+                    incentive to max cap of 0.5 INC.</font></li>
+                <li><b>ANNA</b> accepts refill incentive from <b>CAR #8</b>.</li>
+                <li><b>JOE</b> orders <b>CAR #47</b> for 37.7749° N, 122.4194° W</li>
+                <li><b>CAR #47</b> picks up <b>JOE</b> at 37.7749° N, 122.4194° W</li>
+                <li><b>ALVIN</b> orders <b>CAR #293</b> for 37.4419° N, 122.1430° W</li>
+                <li><b>CAR #47</b> drops off <b>JOE</b> at 37.8716° N, 122.2727° W</li>
+                <li><b>CAR #293</b> picks up <b>ALVIN</b> at 37.4419° N, 122.1430° W</li>
+                <li><b>CAR #293</b> drops off <b>ALVIN</b> at 37.7749° N, 122.4194° W</li>
+                <li><font color=orange>CAUTION! <b>CAR #8</b> approaching critical gas levels. Increasing refill
+                    incentive to max cap of 0.5 INC.</font></li>
+                <li><b>ANNA</b> accepts refill incentive from <b>CAR #8</b>.</li>
+                <li><b>JOE</b> orders <b>CAR #47</b> for 37.7749° N, 122.4194° W</li>
+                <li><b>CAR #47</b> picks up <b>JOE</b> at 37.7749° N, 122.4194° W</li>
+                <li><b>ALVIN</b> orders <b>CAR #293</b> for 37.4419° N, 122.1430° W</li>
+                <li><b>CAR #47</b> drops off <b>JOE</b> at 37.8716° N, 122.2727° W</li>
+                <li><b>CAR #293</b> picks up <b>ALVIN</b> at 37.4419° N, 122.1430° W</li>
+                <li><b>CAR #293</b> drops off <b>ALVIN</b> at 37.7749° N, 122.4194° W</li>
+                <li><font color=orange>CAUTION! <b>CAR #8</b> approaching critical gas levels. Increasing refill
+                    incentive to max cap of 0.5 INC.</font></li>
+                <li><b>ANNA</b> accepts refill incentive from <b>CAR #8</b>.</li>
+            </ul>
+        </div>
 
-
-
+    </div>
+    <script type="text/javascript" src="lib/jQuery.scrollText.js"></script>
 
     <!--<ul class="legend" id="gender">-->
     <!--<li class="magenta">&#9830;-->
